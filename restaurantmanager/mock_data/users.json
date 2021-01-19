@@ -1,0 +1,28 @@
+[{
+"email": "manasa.m@gmail.com",
+"first_name": "Manasa",
+"last_name": "M",
+"password": "password123",
+"phone_number": "7562819383"
+},
+{
+"email": "alex@gmail.com",
+"first_name": "Alex",
+"last_name": "S",
+"password": "password123",
+"phone_number": "9562819387"
+},
+{
+"email": "sachin@gmail.com",
+"first_name": "Sachin",
+"last_name": "HH",
+"password": "password123",
+"phone_number": "+3531819383"
+},
+{
+"email": "randomtest@gmail.com",
+"first_name": "Random",
+"last_name": "Test",
+"password": "password123",
+"phone_number": "891739927"
+}]
