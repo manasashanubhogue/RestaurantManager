@@ -20,5 +20,7 @@ Installation guide
 2. docker build .
 3. docker-compose up
 4. docker exec -it restaurantmanager_web_1 bash
-5. python manage.py migrate
-
+6. Load fixtures : 
+  1. python manage.py loaddata fixtures/users.json
+  2. python manage.py loaddata fixtures/address.json
+  3. python manage.py loaddata fixtures/restaurants.json

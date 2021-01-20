@@ -1,0 +1,42 @@
+[{
+    "name": "Whitefriar Grill",
+    "address": {
+        "full_address": "16 Aungier Street",
+        "city": "Dublin",
+        "country": "Ireland"
+    },
+    "url":"https://whitefriargrill.ie",
+    "phone_number": "01 475 9003",
+    "opening_time": "17:00",
+    "closing_time": "22:00",
+    "is_published": "True",
+    "manager_id": 2
+},
+{
+    "name": "San Lorenzo's",
+    "address": {
+        "full_address": "South City West",
+        "city": "Dublin",
+        "country": "Ireland"
+    },
+    "url":"https://www.sanlorenzos.ie/",
+    "phone_number": "+35314789383",
+    "opening_time": "12:30",
+    "closing_time": "21:00",
+    "is_published": "False",
+    "manager_id": 3
+},
+{
+    "name": "Old Mill Restaurant",
+    "address": {
+        "full_address": "14 Temple Bar",
+        "city": "Dublin 2",
+        "country": "Ireland"
+    },
+    "url":"https://www.oldmillrestaurant.ie/",
+    "phone_number": "+3536719266",
+    "opening_time": "11:30",
+    "closing_time": "22:00",
+    "is_published": "True",
+    "manager_id": 3
+}]

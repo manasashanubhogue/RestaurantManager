@@ -24,6 +24,14 @@ class User(AbstractUser):
         """String representation of the model."""
         return self.username
 
+    @classmethod
+    def get_user(cls, user_id=None):
+        """ Return user email based on id """
+        user_objs = cls.objects
+        if user_id:
+            user_objs = user_objs.filter(id=user_id)
+        return user_objs.values('email', 'id')
+
 
 class BaseModel():
 
@@ -32,7 +40,6 @@ class BaseModel():
         """Save dicts to table."""
 
         bulk_create_obj_list = []
-
         for each_dict in list_of_dicts:
             each_obj = cls(**each_dict)
             bulk_create_obj_list.append(each_obj)
@@ -54,10 +61,12 @@ class Address(models.Model):
     def __str__(self):
         return "{}".format(self.full_address)
 
+    class Meta:
+        unique_together = ('full_address', 'city', 'country',)
 
 class Restaurant(BaseModel, models.Model):
     """ Model to store restaurant details """
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     address = models.ForeignKey(Address, related_name='location', on_delete=models.CASCADE)
     url = models.URLField(max_length=200, null=True, blank=True)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")

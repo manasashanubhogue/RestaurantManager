@@ -1,0 +1,102 @@
+[
+{
+    "model": "restaurant.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$uYPsFbgKgNgD$QZnjhHdWVlrUkCpbvH+2YpxZ8KvlmeQOmmgfET870FI=",
+        "last_login": "2021-01-19T17:20:09.658Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2021-01-19T17:18:42.906Z",
+        "temp_password": null,
+        "email": "admin@admin.com",
+        "phone_number": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "restaurant.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$kysMYp2tRPET$cb/GQXrgIREJS90O/ax13tudCCYFv/Y3cimrXXNG3y8=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "manasa.m@gmail.com",
+        "first_name": "Manasa",
+        "last_name": "M",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-20T12:47:40.699Z",
+        "temp_password": null,
+        "email": "manasa.m@gmail.com",
+        "phone_number": "7562819383",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "restaurant.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$tIMD8PjpIC5S$F2/ye+ogjak7vhi3PEsC4QEYy7CCVCh6Q4XVbpviovs=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "alex@gmail.com",
+        "first_name": "Alex",
+        "last_name": "S",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-20T12:47:47.910Z",
+        "temp_password": null,
+        "email": "alex@gmail.com",
+        "phone_number": "9562819387",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "restaurant.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$s5nDxG3tLAta$PRLectvHm8ACXHgN0GWd4GSmrP8X4olRYeMRO31079E=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "sachin@gmail.com",
+        "first_name": "Sachin",
+        "last_name": "HH",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-20T12:47:54.537Z",
+        "temp_password": null,
+        "email": "sachin@gmail.com",
+        "phone_number": "+3531819383",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "restaurant.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$UeqIK9BJlAKp$K2O+P77GtwHjSovLNXSlAH+i3eFK3WuBFhxv7DVfSgs=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "randomtest@gmail.com",
+        "first_name": "Random",
+        "last_name": "Test",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-01-20T12:48:01.995Z",
+        "temp_password": null,
+        "email": "randomtest@gmail.com",
+        "phone_number": "891739927",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
