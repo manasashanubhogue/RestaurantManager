@@ -7,15 +7,18 @@ from django.db import IntegrityError
 from django.db.models import Q
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from restaurantmanager.restaurant.models import Address, Restaurant, User
+from restaurantmanager.restaurant.models import (
+    Address, Restaurant, User, MenuItem, MenuItemType, Menu )
 from restaurantmanager.restaurant.utils import (
     has_permission_to_manage_restaurant,
-    has_permission_to_edit_restaurant )
+    has_permission_to_edit_restaurant,
+    is_restaurant_manager,
+    validate_params)
 
 class UserDetailsAPI(viewsets.ViewSet):
      
     #TODO: handle validation of email/ph, loggers
-    # @validate_params({'email': str, 'first_name': str, 'last_name': str, 'password': str})
+    @validate_params({'email': str, 'first_name': str, 'last_name': str, 'password': str})
     def create_user(self, request):
         """ Function to create user for the application
         request_data: user detail dict , sample dictionaries in mock_data/users.json"""
@@ -46,8 +49,8 @@ class UserDetailsAPI(viewsets.ViewSet):
 class RestaurantDetailsAPI(viewsets.ViewSet):
 
     def __init__(self):
-        self.all_fields = ['id', 'name', 'address__full_address',
-                            'url', 'phone_number', 'opening_time', 'closing_time']
+        self.all_fields = ['id', 'name', 'address__full_address', 'address__city', 'address__country',
+                            'url', 'phone_number', 'opening_time', 'closing_time', 'is_published', 'manager_id']
 
     def restaurant_meta_data(self, request):
         """ fetch all restaurants - to display in home page """
@@ -99,18 +102,33 @@ class RestaurantDetailsAPI(viewsets.ViewSet):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED, data={"error": "You are not authorized to do this action"})
 
-    def edit_restaurant_details(self, request):
-        """ Update restaurant related details"""
+    def edit_restaurant_details(self, request, restaurant_id):
+        """ Update restaurant related details """
         current_user = request.user
-        restaurant_id = request.data.get('restaurant_id')
+        request_data = request.data
         has_permission = has_permission_to_edit_restaurant(current_user, restaurant_id)
+        input_dict = dict()
         if has_permission:
-            pass
+            address_obj, created = Address.objects.get_or_create(full_address=request_data['address__full_address'],
+                city=request_data['address__city'], country=request_data['address__country'])
+            input_dict.update({
+                'name': request_data['name'],
+                'address_id': address_obj.id,
+                'url': request_data['url'],
+                'phone_number': request_data['phone_number'],
+                'opening_time': request_data['opening_time'],
+                'closing_time': request_data['closing_time'],
+                'is_published': request_data['is_published'],
+                'manager_id': request_data['manager_id']
+            })
+            Restaurant.objects.filter(id=restaurant_id).update(**input_dict)
+            response_data = Restaurant.get_restaurant_data({Q(id=restaurant_id)}, values=[*self.all_fields])
+            return Response(response_data)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED, data={"error": "You are not authorized to do this action"})
  
     def update_restaurant_verification(self, request):
-        """ Method to mark restaurant as verified """
+        """ Method to mark restaurant as verified, returns restaurant dashboard data """
         restaurant_id = request.data.get('restaurant_id')
         if request.user.is_superuser:
             restaurant_obj = Restaurant.objects.filter(id=restaurant_id).update(is_verified=True)
@@ -120,5 +138,50 @@ class RestaurantDetailsAPI(viewsets.ViewSet):
 
 
     def get_restaurant_details(self, request):
-        """ given id return menu, reviews as 2 dict inside (nested) => on click of restaurant details are shown """
+        """ given id return restaurant menu n review details """
         pass
+
+class MenuDetailsAPI(viewsets.ViewSet):
+
+    def get_menu_types(self, request):
+        """ Method to return menu and types - dropdown data required to add menu """
+        menu_item_type = MenuItemType.get_menu_item_types()
+        menu = Menu.get_menu()
+        cuisine_type = {x:y for (x, y) in MenuItem.CUISINES_CHOICES}
+        response_data = {
+            'menu_item': menu_item_type,
+            'menu': menu,
+            'cuisine': cuisine_type.keys()
+        }
+        return Response(data=response_data)
+
+
+    @validate_params({'name': str, 'menuitemtype': int, 'menu_category': int, 'description': str,
+    'price': float, 'menu_item_id': int})
+    def add_update_menu_item(self, request, restaurant_id):
+        """ Method to add restaurant menu - only done by manager, 
+        menu, menu item, cusine data needed is sent via meta data call """
+        # given restaurant id - verify if he is manager and retaurant exists
+        if is_restaurant_manager(request.user, restaurant_id):
+            request_data = request.data
+            menu_item_id = request_data.get('menu_item_id')
+            menu_dict = {
+                'name': request_data.get('name'),
+                'menu_item_type_id': request_data.get('menuitemtype'),
+                'menu_id': request_data.get('menu_category'),
+                'restaurant_id': restaurant_id,
+                'description': request_data.get('description'),
+                'price': request_data.get('price'),
+                'type': request_data.get('cuisine_type')
+            }
+            # if menu_id is -1 => new menu else perform menu edit
+            if menu_item_id > 0:
+                menu_item_obj = MenuItem.objects.filter(id=menu_item_id)
+                menu_item_obj.update(**menu_dict)
+            else:
+                MenuItem.objects.create(**menu_dict)
+            # returns all menu items of the restaurant
+            return Response(MenuItem.get_restaurant_menu(restaurant_id))
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED, data={"error": "You are not authorized to do this action"})
+            

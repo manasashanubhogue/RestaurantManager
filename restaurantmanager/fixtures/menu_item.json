@@ -1,0 +1,184 @@
+[
+{
+    "model": "restaurant.menuitem",
+    "pk": 2,
+    "fields": {
+        "name": "Irish Coffee",
+        "menu_item_type": 9,
+        "menu": 5,
+        "restaurant": 10,
+        "description": "Available from 8pm",
+        "price": 6.5,
+        "type": "NA"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 3,
+    "fields": {
+        "name": "Baileys Coffee",
+        "menu_item_type": 9,
+        "menu": 5,
+        "restaurant": 10,
+        "description": "Available from 8pm",
+        "price": 6.9,
+        "type": "NA"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 4,
+    "fields": {
+        "name": "Bloody mary",
+        "menu_item_type": 7,
+        "menu": 5,
+        "restaurant": 10,
+        "description": "Vodka, Tomato juice with spices",
+        "price": 8.0,
+        "type": "NA"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 5,
+    "fields": {
+        "name": "Christmas pudding",
+        "menu_item_type": 5,
+        "menu": 4,
+        "restaurant": 5,
+        "description": "Warm custard & brandy butter",
+        "price": 10.0,
+        "type": "VEGAN"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 6,
+    "fields": {
+        "name": "Breakfast Special",
+        "menu_item_type": 3,
+        "menu": 1,
+        "restaurant": 10,
+        "description": "2 Sausage, 2 bacon, pudding, beans, fired egg",
+        "price": 10.0,
+        "type": "NA"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 7,
+    "fields": {
+        "name": "Marinated Olives & Bread",
+        "menu_item_type": 1,
+        "menu": 3,
+        "restaurant": 4,
+        "description": "Available from 12pm",
+        "price": 5.5,
+        "type": "VEGETARIAN"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 8,
+    "fields": {
+        "name": "Roast Cauliflower",
+        "menu_item_type": 1,
+        "menu": 3,
+        "restaurant": 4,
+        "description": "beetroot, garam masala hummus, pine nut salsa verde",
+        "price": 8.0,
+        "type": "VEGAN"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 9,
+    "fields": {
+        "name": "Norwegian Eggs",
+        "menu_item_type": 3,
+        "menu": 2,
+        "restaurant": 4,
+        "description": "with potato rosti, smoked salmon, baby spinach, hollandaise",
+        "price": 10.95,
+        "type": "NA"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 10,
+    "fields": {
+        "name": "Belgian Waffles",
+        "menu_item_type": 5,
+        "menu": 2,
+        "restaurant": 4,
+        "description": "w/ nutella, caramelised bananas, chantilly cream, ice cream and toasted hazelnuts",
+        "price": 8.95,
+        "type": "NA"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 11,
+    "fields": {
+        "name": "Ginger Beer Float",
+        "menu_item_type": 6,
+        "menu": 2,
+        "restaurant": 4,
+        "description": "vanilla ice cream charged w/ ginger beer",
+        "price": 6.0,
+        "type": "NA"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 12,
+    "fields": {
+        "name": "Americano",
+        "menu_item_type": 11,
+        "menu": 2,
+        "restaurant": 4,
+        "description": "Coffee",
+        "price": 2.0,
+        "type": "NA"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 13,
+    "fields": {
+        "name": "New york Nutella baked cheesecake",
+        "menu_item_type": 5,
+        "menu": 4,
+        "restaurant": 5,
+        "description": "Chocolate brownie and salt caramel sause",
+        "price": 8.5,
+        "type": "NA"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 14,
+    "fields": {
+        "name": "Veggie breakfast",
+        "menu_item_type": 3,
+        "menu": 2,
+        "restaurant": 5,
+        "description": "Potato rostie plate, tomato, spinach, asparagus",
+        "price": 9.95,
+        "type": "VEGAN"
+    }
+},
+{
+    "model": "restaurant.menuitem",
+    "pk": 15,
+    "fields": {
+        "name": "Gaucomole",
+        "menu_item_type": 1,
+        "menu": 4,
+        "restaurant": 6,
+        "description": "w/ sour cream , tomato salsa, nachos",
+        "price": 7.95,
+        "type": "VEGETARIAN"
+    }
+}
+]

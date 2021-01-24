@@ -1,0 +1,82 @@
+[
+{
+    "model": "restaurant.menuitemtype",
+    "pk": 1,
+    "fields": {
+        "name": "Starter",
+        "description": "Sides"
+    }
+},
+{
+    "model": "restaurant.menuitemtype",
+    "pk": 3,
+    "fields": {
+        "name": "Mains",
+        "description": "Main Dishes"
+    }
+},
+{
+    "model": "restaurant.menuitemtype",
+    "pk": 4,
+    "fields": {
+        "name": "Soups",
+        "description": "Soups"
+    }
+},
+{
+    "model": "restaurant.menuitemtype",
+    "pk": 5,
+    "fields": {
+        "name": "Desserts",
+        "description": "Sweets and ice creams"
+    }
+},
+{
+    "model": "restaurant.menuitemtype",
+    "pk": 6,
+    "fields": {
+        "name": "Mocktails",
+        "description": "Drink Menu"
+    }
+},
+{
+    "model": "restaurant.menuitemtype",
+    "pk": 7,
+    "fields": {
+        "name": "Cocktails",
+        "description": "Drinks"
+    }
+},
+{
+    "model": "restaurant.menuitemtype",
+    "pk": 8,
+    "fields": {
+        "name": "Spirits",
+        "description": "Hard Drinks"
+    }
+},
+{
+    "model": "restaurant.menuitemtype",
+    "pk": 9,
+    "fields": {
+        "name": "Liquer Coffees and Hot Drinks",
+        "description": "Hard drinks"
+    }
+},
+{
+    "model": "restaurant.menuitemtype",
+    "pk": 10,
+    "fields": {
+        "name": "Shots",
+        "description": "Drinks"
+    }
+},
+{
+    "model": "restaurant.menuitemtype",
+    "pk": 11,
+    "fields": {
+        "name": "Beverages",
+        "description": "Hot & Cold beverages"
+    }
+}
+]

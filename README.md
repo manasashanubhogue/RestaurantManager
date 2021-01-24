@@ -24,3 +24,6 @@ Installation guide
   1. python manage.py loaddata fixtures/users.json
   2. python manage.py loaddata fixtures/address.json
   3. python manage.py loaddata fixtures/restaurants.json
+  4. python manage.py loaddata fixtures/menu.json
+  5. python manage.py loaddata fixtures/menu_item_type.json
+  6. python manage.py loaddata fixtures/menu_item.json

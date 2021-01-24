@@ -92,10 +92,18 @@ class Restaurant(BaseModel, models.Model):
 class Menu(models.Model):
     """ Model to store Menu - Breakfast/Dinner/Drinks"""
     name = models.CharField(max_length=100)
-    description = models.CharField(max_length=1024)  # note-availability
+    description = models.CharField(max_length=1024)
 
     def __str__(self):
         return self.name
+    
+    @classmethod
+    def get_menu(cls, id=None):
+        """ Given id return valid menu else return all """
+        cls_obj = cls.objects
+        if id:
+            cls_obj = cls_obj.get(id=id)
+        return cls_obj.values('id', 'name')
 
 
 class MenuItemType(models.Model):
@@ -104,7 +112,15 @@ class MenuItemType(models.Model):
     description = models.CharField(max_length=1024)
 
     def __str__(self):
-        return self.name   
+        return self.name
+    
+    @classmethod
+    def get_menu_item_types(cls, id=None):
+        """ Given id return valid menuitem else return all """
+        cls_obj = cls.objects
+        if id:
+            cls_obj = cls_obj.get(id=id)
+        return cls_obj.values('id', 'name')
 
 
 class MenuItem(models.Model):
@@ -125,7 +141,13 @@ class MenuItem(models.Model):
 
     def __str__(self):
         return '%s-%s'% (self.name, self.restaurant.name)
-    
+
+    @classmethod
+    def get_restaurant_menu(cls, restaurant_id):
+        """ Returns all menu items of the requested restaurant """
+        return cls.objects.filter(restaurant_id=restaurant_id).annotate(cuisine_type=F('type'), menuitemtype=F('menu_item_type_id'),
+        menu_category=F('menu_id')).values('id', 'name', 'menuitemtype', 'menu_category', 'description',
+        'price', 'cuisine_type')
 
 class Review(models.Model):
     """ Model to store reviews for restaurants """
