@@ -8,7 +8,7 @@ from django.db.models import Q
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from restaurantmanager.restaurant.models import (
-    Address, Restaurant, User, MenuItem, MenuItemType, Menu )
+    Address, Restaurant, User, MenuItem, MenuItemType, Menu, Review )
 from restaurantmanager.restaurant.utils import (
     has_permission_to_manage_restaurant,
     has_permission_to_edit_restaurant,
@@ -16,7 +16,7 @@ from restaurantmanager.restaurant.utils import (
     validate_params)
 
 class UserDetailsAPI(viewsets.ViewSet):
-     
+
     #TODO: handle validation of email/ph, loggers
     @validate_params({'email': str, 'first_name': str, 'last_name': str, 'password': str})
     def create_user(self, request):
@@ -28,7 +28,7 @@ class UserDetailsAPI(viewsets.ViewSet):
         password = make_password(request.data.get('password'))
         phone_number = request.data.get('phone_number', None)
         try:
-            User.objects.create(is_staff=False, 
+            User.objects.create(is_staff=False,
                 is_active=True, email=email, username=email, first_name=first_name,
                 last_name=last_name, password=password, phone_number=phone_number)
             return Response(data="User created sucessfully")
@@ -36,7 +36,7 @@ class UserDetailsAPI(viewsets.ViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST, data={"error": "Email already exists"})
 
     def get_app_users(self, request):
-        """ Func to get list of emails as dropdown 
+        """ Func to get list of emails as dropdown
         Use: Add restaurant API, to assign value to manager field"""
         current_user = request.user
         # all user emails are displayed for admin, and only self for restaurant managers
@@ -126,7 +126,7 @@ class RestaurantDetailsAPI(viewsets.ViewSet):
             return Response(response_data)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED, data={"error": "You are not authorized to do this action"})
- 
+
     def update_restaurant_verification(self, request):
         """ Method to mark restaurant as verified, returns restaurant dashboard data """
         restaurant_id = request.data.get('restaurant_id')
@@ -137,9 +137,15 @@ class RestaurantDetailsAPI(viewsets.ViewSet):
             return Response(status=status.HTTP_401_UNAUTHORIZED, data={"error": "You are not authorized to do this action"})
 
 
-    def get_restaurant_details(self, request):
+    def get_restaurant_details(self, request, restaurant_id):
         """ given id return restaurant menu n review details """
-        pass
+        menu_details = MenuItem.get_restaurant_menu(restaurant_id)
+        reviews = Review.get_review_by_restaurant(restaurant_id)
+        response_data = {
+            'menu': menu_details,
+            'reviews': reviews
+        }
+        return Response(data=response_data)
 
 class MenuDetailsAPI(viewsets.ViewSet):
 
@@ -159,7 +165,7 @@ class MenuDetailsAPI(viewsets.ViewSet):
     @validate_params({'name': str, 'menuitemtype': int, 'menu_category': int, 'description': str,
     'price': float, 'menu_item_id': int})
     def add_update_menu_item(self, request, restaurant_id):
-        """ Method to add restaurant menu - only done by manager, 
+        """ Method to add restaurant menu - only done by manager,
         menu, menu item, cusine data needed is sent via meta data call """
         # given restaurant id - verify if he is manager and retaurant exists
         if is_restaurant_manager(request.user, restaurant_id):
@@ -184,4 +190,28 @@ class MenuDetailsAPI(viewsets.ViewSet):
             return Response(MenuItem.get_restaurant_menu(restaurant_id))
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED, data={"error": "You are not authorized to do this action"})
-            
+
+class ReviewAPI(viewsets.ViewSet):
+
+    @validate_params({'rating': int, 'comment': str})
+    def add_update_review(self, request, restaurant_id):
+        """ """
+        request_data = request.data
+        current_user = request.user.id
+        try:
+            review_id = request_data.get('review_id')
+            review_dict = {
+                'rating': request_data.get('rating'),
+                'comment': request_data.get('comment'),
+                'reviewer': request.user,
+                'restaurant_id':restaurant_id
+            }
+            # if review_id is -1, create an obj else update
+            if review_id > 0:
+                review_obj = Review.objects.filter(id=review_id, reviewer=current_user)
+                review_obj.update(**review_dict)
+            else:
+                Review.objects.create(**review_dict)
+            return Response(data="Successfully updated")
+        except IntegrityError:
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={"error": "Review already exists"})

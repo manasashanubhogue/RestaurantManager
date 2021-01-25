@@ -1,42 +1,42 @@
 [
-{
-    "model": "restaurant.menu",
-    "pk": 1,
-    "fields": {
-        "name": "Breakfast",
-        "description": "Breakfast menu"
+    {
+        "model": "restaurant.menu",
+        "pk": 1,
+        "fields": {
+            "name": "Breakfast",
+            "description": "Breakfast menu"
+        }
+    },
+    {
+        "model": "restaurant.menu",
+        "pk": 2,
+        "fields": {
+            "name": "Brunch",
+            "description": "Brunch Menu"
+        }
+    },
+    {
+        "model": "restaurant.menu",
+        "pk": 3,
+        "fields": {
+            "name": "Lunch",
+            "description": "Lunch Menu"
+        }
+    },
+    {
+        "model": "restaurant.menu",
+        "pk": 4,
+        "fields": {
+            "name": "Dinner",
+            "description": "Dinner Menu"
+        }
+    },
+    {
+        "model": "restaurant.menu",
+        "pk": 5,
+        "fields": {
+            "name": "Bar",
+            "description": "Drinks Menu"
+        }
     }
-},
-{
-    "model": "restaurant.menu",
-    "pk": 2,
-    "fields": {
-        "name": "Brunch",
-        "description": "Brunch Menu"
-    }
-},
-{
-    "model": "restaurant.menu",
-    "pk": 3,
-    "fields": {
-        "name": "Lunch",
-        "description": "Lunch Menu"
-    }
-},
-{
-    "model": "restaurant.menu",
-    "pk": 4,
-    "fields": {
-        "name": "Dinner",
-        "description": "Dinner Menu"
-    }
-},
-{
-    "model": "restaurant.menu",
-    "pk": 5,
-    "fields": {
-        "name": "Bar",
-        "description": "Drinks Menu"
-    }
-}
 ]

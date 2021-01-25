@@ -1,0 +1,46 @@
+[
+    {
+        "model": "restaurant.review",
+        "pk": 2,
+        "fields": {
+            "rating": 4,
+            "comment": "Love the place!",
+            "reviewer": 4,
+            "last_updated": "2021-01-24T17:58:18.508Z",
+            "restaurant": 5
+        }
+    },
+    {
+        "model": "restaurant.review",
+        "pk": 3,
+        "fields": {
+            "rating": 4,
+            "comment": "Beautiful place and good food",
+            "reviewer": 3,
+            "last_updated": "2021-01-24T18:41:33.940Z",
+            "restaurant": 5
+        }
+    },
+    {
+        "model": "restaurant.review",
+        "pk": 5,
+        "fields": {
+            "rating": 5,
+            "comment": "Loved the food and the staff where friendly but did not like the place in which we were seated to near the fire and the smoke from it sort of ruined my first experience of the place, although we will be going back tonight so I shall see how I get on",
+            "reviewer": 2,
+            "last_updated": "2021-01-24T18:51:09.294Z",
+            "restaurant": 4
+        }
+    },
+    {
+        "model": "restaurant.review",
+        "pk": 6,
+        "fields": {
+            "rating": 4,
+            "comment": "This is a lovely place to have a drink or a to have a meal",
+            "reviewer": 3,
+            "last_updated": "2021-01-24T18:51:28.107Z",
+            "restaurant": 10
+        }
+    }
+]

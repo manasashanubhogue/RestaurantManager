@@ -46,7 +46,7 @@ def is_restaurant_manager(user, restaurant_id):
     return Restaurant.objects.filter(manager_id=user.id, id=restaurant_id).exists()
 
 def has_permission_to_edit_restaurant(user, restaurant_id):
-    """ SuperUser is allowed to edit any restaurant 
+    """ SuperUser is allowed to edit any restaurant
     Manager can edit only thier restaurants """
     if user.is_superuser:
         return True

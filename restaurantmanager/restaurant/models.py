@@ -14,11 +14,13 @@ class User(AbstractUser):
     temp_password = models.CharField(max_length=255, null=True, blank=True) # use for reset password email functionality
     email = models.CharField(max_length=255, unique=True)
     phone_number = models.CharField(max_length=255, null=True, blank=True)
-    
+
     class Meta:
         """Meta Data."""
         verbose_name = 'App User'
         verbose_name_plural = 'App Users'
+        ordering = ['pk']
+
 
     def __str__(self):
         """String representation of the model."""
@@ -63,6 +65,7 @@ class Address(models.Model):
 
     class Meta:
         unique_together = ('full_address', 'city', 'country',)
+        ordering = ['pk']
 
 class Restaurant(BaseModel, models.Model):
     """ Model to store restaurant details """
@@ -88,6 +91,9 @@ class Restaurant(BaseModel, models.Model):
             restaurants = restaurants.values(*values)
         return restaurants
 
+    class Meta:
+        ordering = ['pk']
+
 
 class Menu(models.Model):
     """ Model to store Menu - Breakfast/Dinner/Drinks"""
@@ -96,7 +102,7 @@ class Menu(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     @classmethod
     def get_menu(cls, id=None):
         """ Given id return valid menu else return all """
@@ -104,6 +110,9 @@ class Menu(models.Model):
         if id:
             cls_obj = cls_obj.get(id=id)
         return cls_obj.values('id', 'name')
+
+    class Meta:
+        ordering = ['pk']
 
 
 class MenuItemType(models.Model):
@@ -113,7 +122,7 @@ class MenuItemType(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     @classmethod
     def get_menu_item_types(cls, id=None):
         """ Given id return valid menuitem else return all """
@@ -121,6 +130,9 @@ class MenuItemType(models.Model):
         if id:
             cls_obj = cls_obj.get(id=id)
         return cls_obj.values('id', 'name')
+
+    class Meta:
+        ordering = ['pk']
 
 
 class MenuItem(models.Model):
@@ -149,6 +161,10 @@ class MenuItem(models.Model):
         menu_category=F('menu_id')).values('id', 'name', 'menuitemtype', 'menu_category', 'description',
         'price', 'cuisine_type')
 
+    class Meta:
+        ordering = ['pk']
+
+
 class Review(models.Model):
     """ Model to store reviews for restaurants """
     RATING_CHOICES = ((1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'))
@@ -157,3 +173,16 @@ class Review(models.Model):
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='food_reviewer')
     last_updated = models.DateTimeField(auto_now=True)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='restaurant_reviewed')
+
+    def __str__(self):
+        return '%s-%s'%(self.reviewer.first_name, self.restaurant.name)
+
+    class Meta:
+        unique_together = ('reviewer', 'restaurant',)
+        ordering = ['pk']
+
+    @classmethod
+    def get_review_by_restaurant(cls, restaurant_id):
+        """ Returns reviews available for given restaurant """
+        return cls.objects.filter(restaurant_id=restaurant_id).values('rating', 'reviewer__first_name',
+            'restaurant__name', 'comment', 'last_updated__date')
