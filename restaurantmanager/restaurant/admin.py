@@ -8,48 +8,57 @@ from .models import (
     Review,
     User,
 )
+from import_export.admin import ImportExportModelAdmin
+from restaurantmanager.restaurant import resources
+
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'username', 'first_name', 'last_name', 'phone_number')
-
+    fieldsets = (
+        ('Account Credentials', {'fields': ('username', 'password')}),
+        ('Personal Information', {'fields': (('first_name', 'last_name'), 'phone_number', 'email')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups')}),
+    )
     class Meta:
         model = User
+
 
 class AddressAdmin(admin.ModelAdmin):
     list_display = ('id', 'full_address', 'city', 'country')
 
     class Meta:
         model = Address
-        ordering = ['pk']
+
 
 class MenuAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
 
     class Meta:
         model = Menu
-        ordering = ['pk']
+
 
 class MenuItemTypeAdmin(admin.ModelAdmin):
     list_display = ('id', '__str__')
 
     class Meta:
         model = MenuItemType
-        ordering = ['pk']
 
-class MenuItemAdmin(admin.ModelAdmin):
+
+class MenuItemAdmin(ImportExportModelAdmin):
     list_display = ('id', 'name', 'price', 'restaurant')
     search_fields = ('restaurant__name',)
 
+    resource_class = resources.MenuItemResource
+
     class Meta:
         model = MenuItem
-        ordering = ['pk']
 
 class RestaurantAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'is_verified', 'is_published')
 
     class Meta:
         model = Restaurant
-        ordering = ['pk']
+
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('id', 'restaurant', 'rating', 'comment', 'reviewer', 'last_updated')
