@@ -135,7 +135,7 @@ class MenuItemType(models.Model):
         ordering = ['pk']
 
 
-class MenuItem(models.Model):
+class MenuItem(BaseModel, models.Model):
     """ Model to store menu item """
     CUISINES_CHOICES = (
 		('NA', 'NONE'),
@@ -163,6 +163,7 @@ class MenuItem(models.Model):
 
     class Meta:
         ordering = ['pk']
+        unique_together = ('name', 'restaurant',)
 
 
 class Review(models.Model):

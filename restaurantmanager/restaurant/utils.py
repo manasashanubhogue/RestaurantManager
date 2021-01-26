@@ -1,8 +1,9 @@
 import functools
-from django.db.models import Q
 from rest_framework import status
 from rest_framework.response import Response
-from restaurantmanager.restaurant.models import Restaurant, PermissionTypeEnum
+from django.db.models import Q
+from django.core.cache import cache
+from restaurantmanager.restaurant.models import Menu, MenuItemType, Restaurant, PermissionTypeEnum
 
 def validate_params(required_params={}):
     '''
@@ -61,3 +62,16 @@ def get_permission_list(user):
     if has_permission_to_manage_restaurant(user):
         permission_list.append(PermissionTypeEnum.CAN_MANAGE_RESTAURANT)
     return permission_list
+
+def get_menu_and_item_type():
+    """ Fetch meta data required and cache it for other api usage """
+    menu_item_type = cache.get('menu_item_type_cached', None)
+    if (menu_item_type is None):
+        menu_item_type = MenuItemType.get_menu_item_types()
+        cache.set('menu_item_type_cached', menu_item_type)
+
+    menu = cache.get('menu_cached', None)
+    if (menu is None):
+        menu = Menu.get_menu()
+        cache.set('menu_cached', menu)
+    return menu_item_type, menu

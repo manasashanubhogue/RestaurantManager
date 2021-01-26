@@ -1,19 +1,18 @@
-import re
-from django.shortcuts import render
-from datetime import datetime
+from rest_framework import viewsets, status
+from rest_framework.response import Response
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError
 from django.db.models import Q
-from rest_framework import viewsets, status
-from rest_framework.response import Response
+from django.shortcuts import render
 from restaurantmanager.restaurant.models import (
-    Address, Restaurant, User, MenuItem, MenuItemType, Menu, Review )
+    Address, Restaurant, User, MenuItem, Review )
 from restaurantmanager.restaurant.utils import (
     has_permission_to_manage_restaurant,
     has_permission_to_edit_restaurant,
     is_restaurant_manager,
-    validate_params)
+    validate_params,
+    get_menu_and_item_type)
 
 class UserDetailsAPI(viewsets.ViewSet):
 
@@ -152,8 +151,7 @@ class MenuDetailsAPI(viewsets.ViewSet):
 
     def get_menu_types(self, request):
         """ Method to return menu and types - dropdown data required to add menu """
-        menu_item_type = MenuItemType.get_menu_item_types()
-        menu = Menu.get_menu()
+        menu_item_type, menu = get_menu_and_item_type()
         cuisine_type = {x:y for (x, y) in MenuItem.CUISINES_CHOICES}
         response_data = {
             'menu_item': menu_item_type,
