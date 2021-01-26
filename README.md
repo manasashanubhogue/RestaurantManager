@@ -13,6 +13,7 @@ Models:
 Dependencies:
 - python 3.9
 - Docker Engine, Docker compose
+- Postman : To Test APIs
 
 Installation guide
 
