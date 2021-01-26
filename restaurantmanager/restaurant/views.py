@@ -75,7 +75,7 @@ class RestaurantDetailsAPI(viewsets.ViewSet):
         if not user.is_superuser:
             filter_param = {Q(manager=user.id)}
         response_data = Restaurant.get_restaurant_data(filter_param, values=[*self.all_fields])
-        return Response(data=response_data)
+        return Response(data=response_data, message='Creation successfull')
 
     def get_my_dashboard_data(self, filter_param):
         # restaurants that are verified by admin and published by manager
@@ -212,6 +212,6 @@ class ReviewAPI(viewsets.ViewSet):
                 review_obj.update(**review_dict)
             else:
                 Review.objects.create(**review_dict)
-            return Response(data="Successfully updated")
+            return Response(data="Review has been Successfully updated")
         except IntegrityError:
             return Response(status=status.HTTP_400_BAD_REQUEST, data={"error": "Review already exists"})

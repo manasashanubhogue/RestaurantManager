@@ -17,12 +17,15 @@ Dependencies:
 Installation guide
 
 1. git clone <REPO URL>
+2. cd RestaurantManager/
 2. docker build .
 3. docker-compose up
 4. docker exec -it restaurantmanager_web_1 bash
 6. Load fixtures :
-    1. cd restaurantmanager/fixtures
-    2. python ../../manage.py loaddata users.json address.json restaurants.json menu.json menu_item_type.json menu_item.json reviews.json
+    - python manage.py loaddata restaurantmanager/fixtures/*.json
+
+To Run Test Cases:
+``` python manage.py test ```
 
 APIs available for following features:
 - Create User
