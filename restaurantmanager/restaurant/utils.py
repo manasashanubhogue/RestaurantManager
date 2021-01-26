@@ -2,7 +2,7 @@ import functools
 from django.db.models import Q
 from rest_framework import status
 from rest_framework.response import Response
-from restaurantmanager.restaurant.models import Restaurant
+from restaurantmanager.restaurant.models import Restaurant, PermissionTypeEnum
 
 def validate_params(required_params={}):
     '''
@@ -30,12 +30,11 @@ def validate_params(required_params={}):
         return wrapper
     return decorator_validate_params
 
-
 def has_permission_to_manage_restaurant(user):
     """ Based  on permission level , return filters applicable """
     if user.is_superuser:
         filter_param = Q()
-    elif Restaurant.objects.filter(manager_id=user.id).exists():
+    elif Restaurant.get_restaurant_data({Q(manager_id=user.id)}).exists():
         filter_param = Q(manager_id=user.id)
     else:
         return False, None
@@ -43,7 +42,7 @@ def has_permission_to_manage_restaurant(user):
 
 def is_restaurant_manager(user, restaurant_id):
     """ True if user is the manager of the given restaurant """
-    return Restaurant.objects.filter(manager_id=user.id, id=restaurant_id).exists()
+    return Restaurant.get_restaurant_data({Q(id=restaurant_id, manager_id=user.id)}).exists()
 
 def has_permission_to_edit_restaurant(user, restaurant_id):
     """ SuperUser is allowed to edit any restaurant
@@ -54,3 +53,11 @@ def has_permission_to_edit_restaurant(user, restaurant_id):
         return True
     else:
         return False
+
+#TODO - FUTURE USAGE? - FE to know which buttons/actions to allow
+def get_permission_list(user):
+    # gets allowed actions for user
+    permission_list = []
+    if has_permission_to_manage_restaurant(user):
+        permission_list.append(PermissionTypeEnum.CAN_MANAGE_RESTAURANT)
+    return permission_list

@@ -185,4 +185,8 @@ class Review(models.Model):
     def get_review_by_restaurant(cls, restaurant_id):
         """ Returns reviews available for given restaurant """
         return cls.objects.filter(restaurant_id=restaurant_id).values('rating', 'reviewer__first_name',
-            'restaurant__name', 'comment', 'last_updated__date')
+            'comment', 'last_updated__date').order_by('rating')
+
+#TODO
+class PermissionTypeEnum(object):
+    CAN_MANAGE_RESTAURANT = 'CAN_MANAGE_RESTAURANT' # edit restaurant details

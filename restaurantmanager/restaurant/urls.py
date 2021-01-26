@@ -1,8 +1,6 @@
 from django.urls import path
-from restaurantmanager.restaurant.views import (
-    MenuDetailsAPI, RestaurantDetailsAPI,
-    ReviewAPI, UserDetailsAPI
-)
+from restaurantmanager.restaurant.views import MenuDetailsAPI, RestaurantDetailsAPI, ReviewAPI, UserDetailsAPI
+
 
 urlpatterns = [
     path('users/', view=UserDetailsAPI.as_view({'get': 'get_app_users'}), name='get_app_users'),
@@ -15,5 +13,5 @@ urlpatterns = [
     path('restaurants/verify/', view=RestaurantDetailsAPI.as_view({'post': 'update_restaurant_verification'}), name='update_restaurant_verification'),
     path('menu/meta_data/',view=MenuDetailsAPI.as_view({'get': 'get_menu_types'}), name='get_menu_types'),
     path('restaurants/menu/<int:restaurant_id>/',view=MenuDetailsAPI.as_view({'post': 'add_update_menu_item'}), name='add_update_menu_item'),
-    path('restaurants/review/<int:restaurant_id>/',view=ReviewAPI.as_view({'post': 'add_update_review'}), name='add_update_review')
+    path('restaurants/review/<int:restaurant_id>/',view=ReviewAPI.as_view({'post': 'add_update_review'}), name='add_update_review'),
 ]

@@ -141,6 +141,7 @@ class RestaurantDetailsAPI(viewsets.ViewSet):
         """ given id return restaurant menu n review details """
         menu_details = MenuItem.get_restaurant_menu(restaurant_id)
         reviews = Review.get_review_by_restaurant(restaurant_id)
+        # reviews = sorted(reviews, key=lambda review: review['rating'])
         response_data = {
             'menu': menu_details,
             'reviews': reviews
