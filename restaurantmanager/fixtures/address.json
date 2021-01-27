@@ -1,38 +1,47 @@
 [
-    {
-        "model": "restaurant.address",
-        "pk": 1,
-        "fields": {
-            "full_address": "16 Aungier Street",
-            "city": "Dublin",
-            "country": "Ireland"
-        }
-    },
-    {
-        "model": "restaurant.address",
-        "pk": 2,
-        "fields": {
-            "full_address": "South City West",
-            "city": "Dublin",
-            "country": "Ireland"
-        }
-    },
-    {
-        "model": "restaurant.address",
-        "pk": 3,
-        "fields": {
-            "full_address": "68 Dorset Street Upper",
-            "city": "Dublin",
-            "country": "Ireland"
-        }
-    },
-    {
-        "model": "restaurant.address",
-        "pk": 4,
-        "fields": {
-            "full_address": "61 O'Connell Street Upper",
-            "city": "Dublin",
-            "country": "Ireland"
-        }
+{
+    "model": "restaurant.address",
+    "pk": 1,
+    "fields": {
+        "full_address": "16 Aungier Street",
+        "city": "Dublin",
+        "country": "Ireland"
     }
+},
+{
+    "model": "restaurant.address",
+    "pk": 2,
+    "fields": {
+        "full_address": "South City West",
+        "city": "Dublin",
+        "country": "Ireland"
+    }
+},
+{
+    "model": "restaurant.address",
+    "pk": 3,
+    "fields": {
+        "full_address": "68 Dorset Street Upper",
+        "city": "Dublin",
+        "country": "Ireland"
+    }
+},
+{
+    "model": "restaurant.address",
+    "pk": 4,
+    "fields": {
+        "full_address": "61 O'Connell Street Upper",
+        "city": "Dublin",
+        "country": "Ireland"
+    }
+},
+{
+    "model": "restaurant.address",
+    "pk": 7,
+    "fields": {
+        "full_address": "14 Temple Bar",
+        "city": "Dublin 2",
+        "country": "Ireland"
+    }
+}
 ]

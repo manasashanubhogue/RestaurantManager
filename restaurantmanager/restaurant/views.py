@@ -74,7 +74,7 @@ class RestaurantDetailsAPI(viewsets.ViewSet):
         if not user.is_superuser:
             filter_param = {Q(manager=user.id)}
         response_data = Restaurant.get_restaurant_data(filter_param, values=[*self.all_fields])
-        return Response(data=response_data, message='Creation successfull')
+        return Response(data=response_data, status=status.HTTP_200_OK)
 
     def get_my_dashboard_data(self, filter_param):
         # restaurants that are verified by admin and published by manager
